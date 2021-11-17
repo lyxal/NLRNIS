@@ -1,10 +1,11 @@
 # read file of first agrument
 import sys, os
+
 try:
- data = open(sys.argv[1]).read()
+    data = open(sys.argv[1]).read()
 except:
- print("ERR")
- exit()
+    print("ERR")
+    exit()
 dct = {"@": data, "E": "0"}
 iteration = 0
 RESET = False
@@ -35,9 +36,15 @@ escape = False
 isready = False
 isset = False
 isgo = False
+
+
 def erroring(errtype, errreason, tb):
     print(end=errreason, file=sys.stderr)
+
+
 sys.excepthook = erroring
+
+
 def dctremoveallexceptcertain(string, variable):
     # removes all except certain characters
     # string = string to be modified
@@ -49,28 +56,35 @@ def dctremoveallexceptcertain(string, variable):
         if i in variable:
             newstring += i
     return newstring
+
+
 while True:
     # Note you should use try and except to catch errors, not if x in y:
     for i in data:
         if printf:
             # print the variable of dct variable
             if i in dct:
-                print(dct[i], end = "")
+                print(dct[i], end="")
                 printf = False
             else:
-                raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                raise Exception(
+                    "ERROR IN FILE",
+                    sys.argv[1],
+                    "VARIABLE NOT FOUND IN ITERATION",
+                    iteration,
+                )
                 break
         elif define:
             if isready:
                 if escape:
                     # check if i is quote or backslash add to string else add backslash and i
-                    if i == "\"" or i == "\\":
+                    if i == '"' or i == "\\":
                         string += i
                         escape = False
                     else:
                         string += "\\" + i
                         escape = False
-                elif i == "\"":
+                elif i == '"':
                     dct[variable] = string
                     string = ""
                     isready = False
@@ -91,10 +105,15 @@ while True:
             # get 3 variables
             if isgo:
                 try:
-                  dct[variable] = dct[variable2].replace(variable3, i)
+                    dct[variable] = dct[variable2].replace(variable3, i)
                 except:
-                  raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
-                  break
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
+                    break
                 replace = isset = isready = isgo = False
                 # check if the variable is "@" change the data
                 if variable == "@":
@@ -124,7 +143,12 @@ while True:
                 try:
                     dct[variable] = dct[variable2] + dct[i]
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                     break
                 join = isset = isready = isgo = False
                 # check if the variable is "@" change the data
@@ -143,7 +167,12 @@ while True:
                 try:
                     dct[variable] = dct[i][::-1]
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                     break
                 isready = False
                 Revert = False
@@ -159,7 +188,12 @@ while True:
                 try:
                     dct[variable] = dct[i][0]
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                 isready = False
                 getfirstchar = False
                 if variable == "@":
@@ -175,11 +209,21 @@ while True:
                     dct[variable]
                     dct[i]
                     try:
-                     dct[variable] = ord(dct[i])
+                        dct[variable] = ord(dct[i])
                     except:
-                     raise Exception("ERROR IN FILE", sys.argv[1], "INVALID NUMBER IN ITERATION", iteration)
+                        raise Exception(
+                            "ERROR IN FILE",
+                            sys.argv[1],
+                            "INVALID NUMBER IN ITERATION",
+                            iteration,
+                        )
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                 getascii = False
                 isready = False
                 if variable == "@":
@@ -192,9 +236,16 @@ while True:
             # removes all except certain character
             if isready:
                 try:
-                    dct[variable] = dctremoveallexceptcertain(dct[variable], dct[i])
+                    dct[variable] = dctremoveallexceptcertain(
+                        dct[variable], dct[i]
+                    )
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                 isready = False
                 removeallexceptcertainchar = False
                 if variable == "@":
@@ -208,7 +259,12 @@ while True:
                 try:
                     dct[i]
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                 try:
                     dct[variable] = open(dct[i], "r").read()
                     dct["E"] = "0"
@@ -237,14 +293,24 @@ while True:
                     try:
                         int(dct[i])
                         try:
-                         dct[variable] = int(dct[i]) + 2
-                         dct["E"] = "0"
+                            dct[variable] = int(dct[i]) + 2
+                            dct["E"] = "0"
                         except:
-                         dct["E"] = "1"
+                            dct["E"] = "1"
                     except:
-                        raise Exception("ERROR IN FILE", sys.argv[1], "INVALID NUMBER", iteration)
+                        raise Exception(
+                            "ERROR IN FILE",
+                            sys.argv[1],
+                            "INVALID NUMBER",
+                            iteration,
+                        )
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                 isready = False
                 takeagrument = False
                 if variable == "@":
@@ -253,12 +319,17 @@ while True:
                 variable = i
                 isready = True
         elif definebutvar:
-             # like > but it defines the variable
+            # like > but it defines the variable
             if isready:
                 try:
                     dct[variable] = dct[i]
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                 isready = False
                 definebutvar = False
                 if variable == "@":
@@ -274,11 +345,16 @@ while True:
                 try:
                     dct[i]
                 except:
-                    raise Exception("ERROR IN FILE", sys.argv[1], "VARIABLE NOT FOUND IN ITERATION", iteration)
+                    raise Exception(
+                        "ERROR IN FILE",
+                        sys.argv[1],
+                        "VARIABLE NOT FOUND IN ITERATION",
+                        iteration,
+                    )
                 try:
-                 files = os.listdir(dct[i])
-                 dct[variable] = files
-                 dct["E"] = "0"
+                    files = os.listdir(dct[i])
+                    dct[variable] = files
+                    dct["E"] = "0"
                 except:
                     dct["E"] = "1"
                 isready = False
@@ -289,7 +365,9 @@ while True:
             else:
                 variable = i
                 isready = True
-        elif i == "@": #############################################################################################################
+        elif (
+            i == "@"
+        ):  #############################################################################################################
             RESET = True
             break
         elif i == "H":
@@ -325,7 +403,7 @@ while True:
         elif i == "%":
             getfilesandfolders = True
         # its not necessary to raise error invalid command
-        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
         iteration += 1
     # check if string still contains something put it in dct
     if string != "":
@@ -340,6 +418,6 @@ while True:
         continue
     break
 try:
-    print(dct["#"], end = "")
+    print(dct["#"], end="")
 except:
     pass
